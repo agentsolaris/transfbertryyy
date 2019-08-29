@@ -25,7 +25,8 @@ class BertModule(nn.Module):
         )
         #pooled_output = self.dropout(pooled_output)
         #logits = self.classifier(pooled_output)
-        return encoded_layers, pooled_output[2:]
+        return encoded_layers[0], pooled_output
+        
 
 
 class BertLastCLSModule(nn.Module):
@@ -34,7 +35,7 @@ class BertLastCLSModule(nn.Module):
         self.dropout = nn.Dropout(dropout_prob)
 
     def forward(self, input):
-        last_hidden = input[-1][8,0,:]
+        last_hidden = input[0]
         out = self.dropout(last_hidden)
         return out
 
