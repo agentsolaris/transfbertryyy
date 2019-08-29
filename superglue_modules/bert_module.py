@@ -37,7 +37,7 @@ class BertLastCLSModule(nn.Module):
     def forward(self, input):
         last_hidden = input[-1]
         out = self.dropout(last_hidden)
-        return out[0]
+        return out
 
 
 class BertContactLastCLSWithTwoTokensModule(nn.Module):

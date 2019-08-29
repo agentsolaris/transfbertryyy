@@ -5,6 +5,7 @@ from superglue_modules.bert_module import BertLastCLSModule, BertModule
 from task_config import SuperGLUE_LABEL_MAPPING, SuperGLUE_TASK_METRIC_MAPPING
 from torch import nn
 
+from snorkel.model.metrics import metric_score
 from snorkel.mtl.scorer import Scorer
 from snorkel.mtl.task import Task, Operation
 
