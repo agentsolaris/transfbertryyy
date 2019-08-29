@@ -1,6 +1,6 @@
 import logging
 
-from pytorch_pretrained_bert import BertTokenizer
+from pytorch_transformers import *
 
 logger = logging.getLogger(__name__)
 

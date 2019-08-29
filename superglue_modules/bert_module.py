@@ -1,7 +1,9 @@
 import os
 
 import torch
-from pytorch_pretrained_bert.modeling import BertModel
+from pytorch_transformers.modeling_bert import BertConfig,BertModel
+from pytorch_transformers.optimization import AdamW, WarmupLinearSchedule
+from pytorch_transformers.tokenization_bert import BertTokenizer 
 from torch import nn
 
 
