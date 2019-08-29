@@ -23,7 +23,7 @@ class BertModule(nn.Module):
         encoded_layers, pooled_output = self.bert_model(
             token_ids, token_type_ids, attention_mask
         )
-        return encoded_layers, pooled_output
+        return encoded_layers[0], pooled_output
 
 
 class BertLastCLSModule(nn.Module):
