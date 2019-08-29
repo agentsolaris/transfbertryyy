@@ -25,7 +25,7 @@ class BertModule(nn.Module):
         )
         #pooled_output = self.dropout(pooled_output)
         #logits = self.classifier(pooled_output)
-        return encoded_layers, pooled_output
+        return encoded_layers, pooled_output[2:]
 
 
 class BertLastCLSModule(nn.Module):
