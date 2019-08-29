@@ -13,8 +13,16 @@ from . import utils
 sys.path.append("..")  # Adds higher directory to python modules path.
 
 
-TASK_NAME = "MRPC"
 
+TASK_NAME = "MRPC"
+def macro_f1(golds, preds, probs):
+    return metric_score(golds, preds, probs, metric="f1")
+
+def accuracy_macro_f1(golds, preds, probs):
+    f1 = macro_f1(golds, preds, probs)
+    accuracy = metric_score(golds, preds, probs, metric="accuracy")
+
+    return (f1 + accuracy) / 2
 
 def build_task(bert_model_name, last_hidden_dropout_prob=0.0):
 
@@ -33,7 +41,7 @@ def build_task(bert_model_name, last_hidden_dropout_prob=0.0):
         else []
     )
 
-    custom_metric_funcs = {}
+    custom_metric_funcs = {"macro_f1": macro_f1, "accuracy_macro_f1": accuracy_macro_f1}
 
     loss_fn = partial(utils.ce_loss, f"{TASK_NAME}_pred_head")
     output_fn = partial(utils.output, f"{TASK_NAME}_pred_head")
@@ -42,7 +50,7 @@ def build_task(bert_model_name, last_hidden_dropout_prob=0.0):
         name=TASK_NAME,
         module_pool=nn.ModuleDict(
             {
-                "bert_module": bert_module,
+                "bert_module": bert_module[0],
                 f"{TASK_NAME}_feature": BertLastCLSModule(
                     dropout_prob=last_hidden_dropout_prob
                 ),

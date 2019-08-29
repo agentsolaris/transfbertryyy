@@ -29,7 +29,15 @@ class BertModule(nn.Module):
         
 
 
+class BertLastCLSModule(nn.Module):
+    def __init__(self, dropout_prob=0.0):
+        super().__init__()
+        self.dropout = nn.Dropout(dropout_prob)
 
+    def forward(self, input):
+        last_hidden = input[-1]
+        out = self.dropout(last_hidden)
+        return out[0]
 
 
 class BertContactLastCLSWithTwoTokensModule(nn.Module):
