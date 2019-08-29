@@ -23,7 +23,7 @@ class BertModule(nn.Module):
         encoded_layers, pooled_output = self.bert_model(
             token_ids, token_type_ids, attention_mask
         )
-        return encoded_layers[0], pooled_output
+        return encoded_layers[0], pooled_output[0]
 
 
 class BertLastCLSModule(nn.Module):
@@ -32,7 +32,7 @@ class BertLastCLSModule(nn.Module):
         self.dropout = nn.Dropout(dropout_prob)
 
     def forward(self, input):
-        last_hidden = input[0][-1]
+        last_hidden = input[-1][:, 0, :]
         out = self.dropout(last_hidden)
         return out
 
