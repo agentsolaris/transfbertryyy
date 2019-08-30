@@ -51,7 +51,7 @@ def build_task(bert_model_name, last_hidden_dropout_prob=0.0):
         name=TASK_NAME,
         module_pool=nn.ModuleDict(
             {
-                "bert_module": bert_module[0],
+                "bert_module": bert_module,
                 f"{TASK_NAME}_feature": BertLastCLSModule(
                     dropout_prob=last_hidden_dropout_prob
                 ),
@@ -61,6 +61,7 @@ def build_task(bert_model_name, last_hidden_dropout_prob=0.0):
         task_flow=[
             Operation(
                 name=f"{TASK_NAME}_bert_module",
+                
                 module_name="bert_module",
                 inputs=[
                     ("_input_", "token_ids"),
